@@ -1,0 +1,25 @@
+---
+import { withBase } from '../../lib/url';
+// Logos oficiales (public/logos/). Reglas del manual BanBif:
+// - No alterar, recolorear, inclinar ni aplicar sombras al logotipo (pág. 9).
+// - Sobre negro o cyan BanBif: versión negativa a color (blanco + aro verde).
+// - Sobre blanco: versión positiva a color.
+// size = altura en px del logotipo BanBif.
+interface Props {
+  brand: 'banbif' | 'gloria';
+  size?: number;
+  variant?: 'blanco' | 'color' | 'negro';
+  class?: string;
+}
+const { brand, size = 22, variant = 'blanco', class: cls = '' } = Astro.props;
+---
+{brand === 'banbif'
+  ? <img class={`bm bm-banbif ${cls}`} src={withBase(`/logos/banbif-${variant}.webp`)} alt="BanBif" width={Math.round(size * 3.7)} height={size} style={`height:${size}px`} decoding="async" />
+  : <span class={`bm bm-gloria ${cls}`} style={`--h:${size}px`}><img src={withBase("/logos/gloria.webp")} alt="Gloria" width="600" height="412" decoding="async" /></span>}
+<style>
+  .bm { display: inline-block; vertical-align: middle; }
+  .bm-banbif { width: auto; max-width: none; }
+  /* Gloria sobre fondo oscuro: su logo (azul y rojo) necesita un contenedor blanco para ser legible */
+  .bm-gloria { background: #fff; border-radius: calc(var(--h) * 0.22); padding: calc(var(--h) * 0.1) calc(var(--h) * 0.16); line-height: 0; }
+  .bm-gloria img { height: calc(var(--h) * 0.8); width: auto; max-width: none; }
+</style>

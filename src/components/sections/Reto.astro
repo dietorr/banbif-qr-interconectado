@@ -1,0 +1,133 @@
+---
+const frase = 'Ya cobraban con QR. Pero conciliar cada pago… era'.split(' ');
+const cierre = 'otra historia.';
+const dolores = [
+  { t: 'Cobros que no se reconocen solos', d: 'Un pago llegaba, pero alguien tenía que identificar a qué cliente y a qué entrega correspondía.', i: 'search' },
+  { t: 'Datos del cliente tecleados a mano', d: 'Sin validación en línea, un dato mal escrito se convertía en una diferencia por rastrear después.', i: 'keyboard' },
+  { t: 'Reportes que no cuadran', d: 'Finanzas revisaba pilas de reportes y pantallas para encontrar qué pago faltaba o sobraba.', i: 'sheet' },
+  { t: 'Cierres de ruta lentos', d: 'Al terminar el día, distribuidor y supervisor reconstruían los cobros en lugar de simplemente confirmarlos.', i: 'clock' },
+];
+const filas = [
+  { c: 'Bodega Ejemplo S.A.C.', a: 'S/ •••.••', b: 'S/ •••.••', ok: true },
+  { c: 'Bodega Ejemplo S.A.C.', a: 'S/ •••.••', b: '—', ok: false, tag: 'Falta' },
+  { c: 'Bodega Ejemplo S.A.C.', a: 'S/ •••.••', b: 'S/ •••.••', ok: true },
+  { c: 'Bodega Ejemplo S.A.C.', a: '—', b: 'S/ •••.••', ok: false, tag: 'Sobra' },
+];
+---
+<section class="section reto" id="reto">
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow warn">El reto</span>
+      <h2 class="h-section">Cobrar con QR no era el problema</h2>
+      <p class="lead">El problema empezaba después del cobro.</p>
+    </div>
+
+    <p class="cuerpo reveal">Cada día, los camiones de Grupo Gloria recorren el país llevando sus productos a cada tienda y a cada bodega. Ya cobraban con QR. Pero conciliar cada pago era otra historia: lo que se cobraba en la calle tenía que coincidir, uno por uno, con lo que registraba la empresa.</p>
+
+    <blockquote class="frase" data-inview aria-label="Ya cobraban con QR. Pero conciliar cada pago… era otra historia.">
+      <span aria-hidden="true">
+        {frase.map((w, i) => <span class="w" style={`--i:${i}`}>{w}{' '}</span>)}<span class="w wp pill pill-purple" style={`--i:${frase.length}`}>{cierre}</span>
+      </span>
+    </blockquote>
+
+    <div class="grid">
+      <ul class="dolores">
+        {dolores.map((d, n) => (
+          <li class="dolor reveal" style={`--d:${n * 0.08}s`}>
+            <span class={`ico shape ${n % 2 === 0 ? 'shape-light' : 'shape-purple'}`} aria-hidden="true">
+              {d.i === 'search' && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="10.5" r="6.5" fill="var(--ic-fill)"/><path d="m20 19.5-4.2-4.2M9 8.5l4 4M13 8.5l-4 4"/><circle cx="4" cy="20" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+              {d.i === 'keyboard' && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="12" rx="3" fill="var(--ic-fill)"/><path d="M6.5 9.5h.01M10 9.5h.01M14 9.5h.01M17.5 9.5h.01M7.500 13.500h9"/><circle cx="4" cy="21" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+              {d.i === 'sheet' && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="17" height="17" rx="4" fill="var(--ic-fill)"/><path d="M4 9h17M4 14.500h17M10.500 9v11"/><circle cx="3.500" cy="22" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+              {d.i === 'clock' && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11.500" r="8.500" fill="var(--ic-fill)"/><path d="M12 7v4.500l3 2"/><circle cx="3.500" cy="21" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+            </span>
+            <div>
+              <h3>{d.t}</h3>
+              <p>{d.d}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="visual reveal" style="--d:.15s" role="img" aria-label="Ilustración: dos reportes que no coinciden, con un pago faltante y otro sobrante">
+        <div class="vh">
+          <span>Reporte de cobros</span>
+          <span class="badge">2 diferencias</span>
+        </div>
+        <div class="cols"><span>Cliente</span><span>Calle</span><span>Registro</span></div>
+        {filas.map((f) => (
+          <div class={`row ${f.ok ? '' : 'bad'}`}>
+            <span class="cl">{f.c}</span>
+            <span>{f.a}</span>
+            <span>{f.b}{f.tag && <em>{f.tag}</em>}</span>
+          </div>
+        ))}
+        <div class="vf">¿Cuál pago falta? ¿Cuál sobra?</div>
+      </div>
+    </div>
+
+    <p class="pregunta reveal">¿Cómo <span class="pill pill-cyan">conciliar</span> cada pago?</p>
+  </div>
+</section>
+
+<style>
+  .reto { overflow: hidden; }
+  .bg-glow { position: absolute; inset: 0 0 auto 0; height: 520px; background: radial-gradient(50% 60% at 15% 0%, rgba(146,79,245,.14), transparent); pointer-events: none; }
+  .container { position: relative; }
+  .eyebrow.warn::before { background: var(--bb-purple-light); }
+  .cuerpo { color: var(--muted); max-width: 62ch; }
+
+  .frase {
+    margin: clamp(40px, 8vw, 88px) 0;
+    font-family: var(--font-display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2;
+    font-size: clamp(30px, 6.4vw, 72px); max-width: 20ch;
+  }
+  .w { color: rgba(255,255,255,.2); display: inline; transition: color .6s var(--ease), opacity .6s var(--ease); transition-delay: calc(var(--i) * 70ms); }
+  .wp { color: var(--bb-white); opacity: .25; }
+  .frase.in-view .w { color: var(--text); }
+  .frase.in-view .wp { opacity: 1; }
+  .no-js .w { color: var(--text); }
+  .no-js .wp { opacity: 1; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .w { transition: none; color: rgba(255,255,255,.2); animation: reto-lit linear both; }
+      .wp { color: var(--bb-white); opacity: .25; animation-name: reto-litp; }
+      .w:not(#x) { animation-timeline: view(); animation-range: entry calc(var(--i) * 2.5%) entry calc(22% + var(--i) * 3.5%); }
+      .frase.in-view .w { color: rgba(255,255,255,.2); }
+      .frase.in-view .wp { color: var(--bb-white); opacity: .25; }
+      @keyframes reto-lit { to { color: var(--text); } }
+      @keyframes reto-litp { to { opacity: 1; } }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) { .w { color: var(--text); } .wp { opacity: 1; } }
+
+  .grid { display: grid; gap: 28px; }
+  .dolores { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .dolor {
+    display: flex; gap: 16px; padding: 20px; border-radius: var(--radius);
+    background: var(--surface); border: 1px solid var(--line);
+  }
+  .ico { width: 56px; height: 50px; --ic-fill: var(--bb-cyan); --ic-dot: var(--bb-purple); }
+  .ico.shape-purple { --ic-fill: var(--bb-cyan); --ic-dot: var(--bb-white); }
+  .dolor h3 { font-size: 18px; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .dolor p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+  .visual { border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line-strong); padding: 16px; font-family: var(--font-mono); font-size: 12px; align-self: start; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+  .vh { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); font-family: var(--font-body); font-weight: 600; font-size: 13px; }
+  .badge { color: var(--bb-black); background: var(--bb-purple-light); border-radius: 999px; padding: 3px 12px; font-weight: 700; }
+  .cols, .row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; padding: 12px 8px; align-items: center; }
+  .cols { color: var(--muted); font-family: var(--font-body); font-weight: 600; font-size: 12px; }
+  .row { border-radius: 10px; color: var(--muted); border-top: 1px solid var(--line); }
+  .row .cl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row.bad { background: rgba(190,156,249,.12); box-shadow: inset 0 0 0 1px rgba(190,156,249,.5); color: var(--text); border-top-color: transparent; margin: 2px 0; }
+  .row em { font-style: normal; display: inline-block; margin-left: 6px; font-family: var(--font-body); font-weight: 700; font-size: 11px; color: var(--bb-black); background: var(--bb-purple-light); border-radius: 999px; padding: 1px 9px; }
+  .vf { margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--line-strong); color: var(--bb-purple-light); text-align: center; font-family: var(--font-body); font-weight: 700; }
+
+  .pregunta { margin-top: clamp(56px, 10vw, 110px); text-align: center; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; font-size: clamp(32px, 8vw, 80px); }
+
+  @media (min-width: 1024px) {
+    .grid { grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: start; }
+    .visual { position: sticky; top: 100px; padding: 22px; font-size: 13px; }
+    .dolor { padding: 24px; }
+  }
+</style>

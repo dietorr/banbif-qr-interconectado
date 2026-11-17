@@ -1,0 +1,121 @@
+---
+const caps = [
+  {
+    n: '01', k: 'El reto', tone: 'cyan', shape: 'shape-white',
+    t: 'Ya cobraban con QR. Conciliar cada pago era otra historia.',
+    d: 'Lo cobrado en la calle tenía que coincidir, uno por uno, con lo que registraba la empresa.',
+  },
+  {
+    n: '02', k: 'La oportunidad', tone: 'purple', shape: 'shape-light',
+    t: 'BanBif no estaba en el radar.',
+    d: 'Ganó la confianza de Gloria mostrando lo ya construido en Recaudaciones, no con promesas.',
+  },
+  {
+    n: '03', k: 'Co-creación', tone: 'light', shape: 'shape-purple',
+    t: 'Lo construimos con ellos, no para ellos.',
+    d: 'Visitas a planta y oficinas, y un prototipo probado con sus operadores.',
+    sellos: ['Intuitivo', 'Simple', 'Conciliado'],
+  },
+];
+---
+<section class="section historia" id="historia">
+  <div class="container">
+    <div class="historia-head">
+      <span class="eyebrow">La historia</span>
+      <h2 class="h-section historia-h">De no estar en el radar a <span class="pill pill-cyan">construirlo juntos</span></h2>
+    </div>
+  </div>
+
+  <div class="historia-wrap">
+    <ul class="historia-track" tabindex="0" aria-label="Capítulos de la historia" data-historia-track>
+      {caps.map((c, i) => (
+        <li class={`historia-card historia-${c.tone}`} data-historia-card>
+          <div class="historia-top">
+            <span class={`shape ${c.shape}`} aria-hidden="true">
+              {i === 0 && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="2.5" width="12" height="16" rx="3" fill="var(--bb-cyan)"/><path d="M7 7.5h5M7 11h3"/><circle cx="17" cy="16.5" r="4.5"/><path d="M15.4 14.9l3.2 3.2M18.6 14.9l-3.2 3.2"/><circle cx="4.5" cy="21" r="1.6" fill="var(--bb-purple)" stroke="none"/></svg>}
+              {i === 1 && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="8.5"/><circle cx="12" cy="11" r="4.6" fill="var(--bb-cyan)"/><path d="M12 11l6-6"/><circle cx="4" cy="21" r="1.6" fill="var(--bb-purple)" stroke="none"/></svg>}
+              {i === 2 && <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3" fill="var(--bb-cyan)"/><path d="M9.8 12.5l1.7 1.7 3-3.4M10.5 5.5h3"/><circle cx="3.5" cy="21" r="1.6" fill="var(--bb-cyan-light)" stroke="none"/></svg>}
+            </span>
+            <span class="historia-num" aria-hidden="true">{c.n}</span>
+          </div>
+          <p class="historia-k">{c.k}</p>
+          <h3 class="historia-t">{c.t}</h3>
+          <p class="historia-d">{c.d}</p>
+          {c.sellos && (
+            <ul class="historia-sellos">
+              {c.sellos.map((s) => <li class="pill pill-purple">{s}</li>)}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+    <div class="historia-nav" aria-hidden="true">
+      <span class="historia-dots">{caps.map((_, i) => <i class={i === 0 ? 'on' : ''} data-historia-dot></i>)}</span>
+      <span class="historia-hint">Desliza →</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .historia { padding-block: clamp(44px, 9vw, 96px); }
+  .historia-head { margin-bottom: 22px; }
+  .historia-h { font-size: clamp(28px, 7.4vw, 48px); max-width: 20ch; line-height: 1.18; }
+
+  .historia-wrap { width: 100%; }
+  .historia-track {
+    list-style: none; margin: 0; padding: 4px var(--gutter) 6px;
+    display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .historia-track::-webkit-scrollbar { display: none; }
+  .historia-card {
+    flex: 0 0 85%; scroll-snap-align: start;
+    border-radius: 28px; padding: 22px 20px 24px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .historia-cyan { background: var(--bb-cyan); color: var(--bb-black); }
+  .historia-purple { background: var(--bb-purple); color: var(--bb-white); }
+  .historia-light { background: var(--bb-cyan-light); color: var(--bb-black); }
+  .shape-white { background: var(--bb-white); color: var(--bb-black); }
+
+  .historia-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .historia-num { font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em; }
+  .historia-k { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+  .historia-t { font-size: clamp(21px, 5.6vw, 26px); line-height: 1.2; }
+  .historia-d { margin-top: 10px; font-size: 16px; line-height: 1.5; }
+  .historia-sellos { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .historia-sellos .pill { font-weight: 700; font-size: 14px; padding: 0.2em 0.7em; border-radius: 999px; margin: 0; }
+
+  .historia-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px var(--gutter) 0; }
+  .historia-dots { display: inline-flex; gap: 8px; }
+  .historia-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.3); transition: width .3s var(--ease), background .3s; }
+  .historia-dots i.on { width: 24px; border-radius: 8px; background: var(--bb-cyan); }
+  .historia-hint { font-size: 14px; font-weight: 600; color: var(--muted); }
+
+  @media (min-width: 900px) {
+    .historia-wrap { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
+    .historia-track { overflow: visible; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; scroll-snap-type: none; }
+    .historia-card { flex: none; padding: 28px 26px 30px; }
+    .historia-nav { display: none; }
+    .historia-head { margin-bottom: 36px; }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-historia-track]');
+  if (track) {
+    const cards = [...track.querySelectorAll<HTMLElement>('[data-historia-card]')];
+    const dots = [...document.querySelectorAll<HTMLElement>('[data-historia-dot]')];
+    let raf = 0;
+    const upd = () => {
+      raf = 0;
+      const x = track.scrollLeft;
+      let best = 0, d = Infinity;
+      cards.forEach((c, i) => { const k = Math.abs(c.offsetLeft - track.offsetLeft - x - 16); if (k < d) { d = k; best = i; } });
+      if (x + track.clientWidth >= track.scrollWidth - 4) best = cards.length - 1;
+      dots.forEach((el, i) => el.classList.toggle('on', i === best));
+    };
+    track.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  }
+</script>

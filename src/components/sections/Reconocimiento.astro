@@ -1,0 +1,107 @@
+---
+const diffs = [
+  { t: 'Concilia, no solo cobra', d: 'El foco no es el QR: es que cada pago quede registrado y cuadre.' },
+  { t: 'Conectada en línea con la empresa', d: 'La razón social se valida al instante contra el sistema de Gloria.' },
+  { t: 'Cualquier billetera, cualquier banco', d: 'El cliente paga como prefiere; el distribuidor no depende de una sola app.' },
+  { t: 'Dos plataformas, una sola verdad', d: 'App del distribuidor y web del supervisor, mirando el mismo registro.' },
+  { t: 'Hecha con quienes la usan', d: 'Co-creada con operadores y áreas de Gloria, y validada en ruta.' },
+];
+---
+<section class="section" id="reconocimiento">
+  <div class="container">
+    <div class="hero">
+      <div class="seal-wrap reveal" role="img" aria-label="Sello: La plataforma más completa del mercado, según otras empresas">
+        <svg class="seal" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <path id="rc-circle" d="M120 120 m-93 0 a93 93 0 1 1 186 0 a93 93 0 1 1 -186 0"/>
+          </defs>
+          <circle cx="120" cy="120" r="118" fill="#1b2130"/>
+          <g class="ring">
+            <circle cx="120" cy="120" r="112" fill="none" stroke="#20a6ff" stroke-width="1.5" stroke-dasharray="2 6"/>
+            <text font-family="Manrope Variable, Manrope, sans-serif" font-size="14.5" font-weight="700" fill="#fff">
+              <textPath href="#rc-circle" textLength="574" lengthAdjust="spacing">LA PLATAFORMA MÁS COMPLETA DEL MERCADO <tspan fill="#20a6ff">●</tspan></textPath>
+            </text>
+          </g>
+          <circle cx="120" cy="120" r="68" fill="#924ff5"/>
+          <g transform="translate(120 122) scale(1.15)" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round">
+            <path d="M0 -34l9.5 20 22 2.8-16 15.2 4 21.8L0 12.5-19.5 25.8l4-21.8-16-15.2 22-2.8z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="txt reveal" style="--d:.1s">
+        <span class="eyebrow">Reconocimiento</span>
+        <h2 class="h-section">La más <span class="pill pill-purple">completa</span> del mercado</h2>
+        <p class="sub">Otras empresas ya lo reconocen.</p>
+        <p class="lead">Hoy, otras empresas reconocen a Pago QR interconectado como la plataforma más completa del mercado. No por una sola función, sino porque resuelve el cobro y la conciliación como un solo proceso.</p>
+      </div>
+    </div>
+
+    <h3 class="why reveal">¿Por qué es diferente?</h3>
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        {[0, 1].map(() => diffs.map((x, i) => <span class={`chip ${i === 1 || i === 3 ? 'chip-solid' : ''}`}><i></i>{x.t}</span>))}
+      </div>
+    </div>
+    <ol class="grid">
+      {diffs.map((x, i) => (
+        <li class={`card c${i} reveal`} style={`--d:${i * 0.08}s`}>
+          <span class="n"><span>0{i + 1}</span></span>
+          <h4>{x.t}</h4>
+          <p>{x.d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .section { overflow-x: clip; }
+  .hero { display: grid; gap: 36px; justify-items: center; text-align: center; margin-bottom: clamp(56px, 8vw, 96px); }
+  .txt { display: flex; flex-direction: column; align-items: center; }
+  .sub { font-family: var(--font-display); font-size: clamp(18px, 2.6vw, 22px); margin-top: 14px; color: var(--text); }
+  .seal-wrap { position: relative; width: min(78vw, 320px); aspect-ratio: 1; }
+  .seal { position: relative; width: 100%; height: 100%; }
+  .ring { transform-origin: 120px 120px; animation: reconocimiento-spin 28s linear infinite; }
+  @keyframes reconocimiento-spin { to { transform: rotate(360deg); } }
+
+  .why { font-size: clamp(24px, 4vw, 36px); margin-bottom: 24px; text-align: center; }
+  .marquee { overflow: hidden; margin: 0 calc(-1 * var(--gutter)) 36px; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .track { display: flex; gap: 12px; width: max-content; animation: reconocimiento-marq 40s linear infinite; }
+  .marquee:hover .track, .marquee:active .track { animation-play-state: paused; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; padding: 10px 18px; min-height: 44px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.9); color: #fff; font-weight: 600; font-size: 15px; }
+  .chip-solid { background: var(--bb-cyan); color: var(--bb-black); box-shadow: none; }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--bb-green); }
+  .chip-solid i { background: var(--bb-purple); }
+  @keyframes reconocimiento-marq { to { transform: translateX(-50%); } }
+
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: x; }
+  .grid .card { position: relative; overflow: hidden; border: 0; transition: transform .4s var(--ease); }
+  .grid .card:hover { transform: translateY(-4px); }
+  .c0 { background: var(--bb-cyan); color: var(--bb-black); }
+  .c1 { background: var(--bb-purple); color: #fff; }
+  .c2 { background: var(--bb-cyan-light); color: var(--bb-black); }
+  .c3 { background: var(--surface); color: #fff; box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .c4 { background: var(--bb-purple-light); color: var(--bb-black); }
+  .n { display: inline-grid; place-items: center; width: 46px; height: 40px; border-radius: 42% / 48%; background: currentColor; font-size: 15px; font-weight: 700; }
+  .n span { color: var(--card-bg); }
+  .c0 { --card-bg: var(--bb-cyan); } .c1 { --card-bg: var(--bb-purple); } .c2 { --card-bg: var(--bb-cyan-light); } .c3 { --card-bg: var(--surface); } .c4 { --card-bg: var(--bb-purple-light); }
+  .grid h4 { font-size: 20px; margin: 10px 0 8px; }
+  .grid p { font-size: 15.5px; opacity: .9; }
+
+  @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) {
+    .hero { grid-template-columns: auto 1fr; text-align: left; justify-items: start; gap: 80px; }
+    .txt { align-items: flex-start; }
+    .seal-wrap { width: 340px; }
+    .grid { grid-template-columns: repeat(6, 1fr); }
+    .grid li { grid-column: span 2; }
+    .grid li:nth-child(4) { grid-column: 2 / span 2; }
+    .grid li:nth-child(5) { grid-column: 4 / span 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ring { animation: none; }
+    .track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; padding-inline: var(--gutter); }
+    .track .chip:nth-child(n+6) { display: none; }
+    .marquee { mask-image: none; -webkit-mask-image: none; }
+  }
+</style>

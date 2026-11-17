@@ -1,0 +1,166 @@
+---
+import BrandMark from '../ui/BrandMark.astro';
+const qr = [1,1,1,0,1,1,1, 1,0,1,0,1,0,1, 1,1,1,0,1,1,1, 0,0,0,1,0,0,0, 1,0,1,1,0,1,1, 0,1,0,0,1,0,1, 1,1,1,0,1,1,0];
+---
+<section class="section bn" id="beneficios" aria-labelledby="medio-bn-title">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Beneficios</span>
+      <h2 class="h-section" id="medio-bn-title">Cada uno gana algo <span class="pill pill-purple">concreto</span></h2>
+      <p class="lead">Una solución pensada para quienes la usan.</p>
+    </div>
+
+    <div class="bento">
+      <article class="cell gloria reveal" data-inview>
+        <div class="txt">
+          <BrandMark brand="gloria" size={52} class="lg" />
+          <span class="who">Para Gloria</span>
+          <p>Cada cobro llega conciliado a su ERP, con el dato del cliente validado en línea. Menos tiempo reconstruyendo, más certeza en los registros.</p>
+        </div>
+        <div class="vis erp" aria-hidden="true">
+          <div class="erp-h"><b>ERP · Registro único</b></div>
+          {[0,1,2,3,4].map((i) => (
+            <div class="erp-r" style={`--i:${i}`}><span class="bar"></span><span class="bar s"></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          ))}
+        </div>
+      </article>
+
+      <article class="cell dist reveal" style="--d:.08s">
+        <div class="vis route" aria-hidden="true">
+          <svg viewBox="0 0 200 70" preserveAspectRatio="xMidYMid meet">
+            <path id="medio-route" d="M8 55 C 45 55, 45 15, 85 20 S 140 62, 192 18" fill="none" stroke="rgba(20,25,37,.45)" stroke-width="2" stroke-dasharray="4 5" stroke-linecap="round"/>
+            <circle cx="8" cy="55" r="4" fill="#141925"/><circle cx="85" cy="20" r="4" fill="#141925"/><circle cx="192" cy="18" r="4" fill="#ffffff" stroke="#141925" stroke-width="2"/>
+            <g class="truck"><rect x="-10" y="-7" width="20" height="14" rx="5" fill="#924ff5"/><circle cx="-4" cy="7" r="2.4" fill="#141925"/><circle cx="4" cy="7" r="2.4" fill="#141925"/><animateMotion dur="6s" repeatCount="indefinite" rotate="0"><mpath href="#medio-route"/></animateMotion></g>
+          </svg>
+        </div>
+        <div class="txt"><span class="who">Para el distribuidor</span><p>Cobra con un flujo corto: RUC, monto, QR. Al cerrar la ruta, su consulta ya coincide con lo registrado.</p></div>
+      </article>
+
+      <article class="cell sup reveal" style="--d:.16s">
+        <div class="vis panel" aria-hidden="true">
+          <div class="pn-top"><b>Cobros por distribuidor</b></div>
+          <div class="pn-bars"><span style="--h:45%"></span><span style="--h:70%"></span><span style="--h:55%"></span><span style="--h:90%"></span><span style="--h:75%"></span></div>
+          <div class="pn-chip">Todo cuadra</div>
+        </div>
+        <div class="txt"><span class="who">Para el supervisor</span><p>Una plataforma web para consultar y cuadrar los cobros de su equipo, sin perseguir reportes.</p></div>
+      </article>
+
+      <article class="cell bodega reveal" style="--d:.1s">
+        <div class="vis pay" aria-hidden="true">
+          <div class="qr">{qr.map((v) => <i class={v ? 'on' : ''}></i>)}</div>
+          <div class="wallets"><span>Billetera</span><span>Banco</span><span>Billetera</span></div>
+        </div>
+        <div class="txt"><span class="who">Para la bodega</span><p>Paga con la billetera o el banco que ya usa. Sin efectivo, sin cambiar sus hábitos.</p></div>
+      </article>
+
+      <article class="cell banbif reveal" style="--d:.18s" data-inview>
+        <div class="txt">
+          <span class="who">Para BanBif</span>
+          <p>Una solución diferenciadora que fortalece la relación con un cliente clave y se apoya en lo ya construido en Recaudaciones.</p>
+        </div>
+        <div class="vis link" aria-hidden="true">
+          <BrandMark brand="banbif" variant="blanco" size={20} />
+          <div class="wire"><span class="p"></span><span class="p p2"></span><span class="shape ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8M10 8H8a4 4 0 0 0 0 8h2M14 8h2a4 4 0 0 1 0 8h-2"/><circle cx="4.6" cy="20" r="1.6" fill="var(--bb-purple)" stroke="none"/></svg></span></div>
+          <BrandMark brand="gloria" size={20} />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.bn .cell').forEach((c) => {
+    c.addEventListener('pointermove', (e) => {
+      const r = c.getBoundingClientRect();
+      c.style.setProperty('--x', `${e.clientX - r.left}px`);
+      c.style.setProperty('--y', `${e.clientY - r.top}px`);
+    });
+  });
+</script>
+
+<style>
+  .bn { overflow-x: clip; }
+  .bento { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .cell { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 20px; justify-content: space-between; padding: clamp(20px, 3vw, 28px); border-radius: var(--radius); --x: 50%; --y: 0%; transition: transform .5s var(--ease), opacity .8s var(--ease); }
+  .cell > * { position: relative; }
+  /* Bloques sólidos de color de marca, con la combinación de texto del manual (pág. 22) */
+  .gloria { background: var(--bb-white); color: var(--bb-black); }
+  .dist { background: var(--bb-cyan); color: var(--bb-black); }
+  .sup { background: var(--surface); color: var(--bb-white); border: 1px solid var(--line); }
+  .bodega { background: var(--bb-cyan-light); color: var(--bb-black); }
+  .banbif { background: var(--bb-purple); color: var(--bb-white); }
+  /* Spotlight del puntero solo en la celda oscura */
+  .sup::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(320px circle at var(--x) var(--y), rgba(32,166,255,.22), transparent 65%); }
+  .sup:hover::before { opacity: 1; }
+  .who { display: inline-block; font-weight: 700; font-size: clamp(20px, 2.4vw, 24px); letter-spacing: -.02em; margin-bottom: 8px; }
+  .gloria .who, .banbif .who { font-size: clamp(24px, 3vw, 32px); }
+  .txt p { font-size: 15.5px; }
+  .gloria .txt p { color: rgba(20,25,37,.78); }
+  .dist .txt p, .bodega .txt p { color: var(--bb-black); }
+  .sup .txt p { color: var(--muted); }
+  .banbif .txt p { color: var(--bb-white); }
+  .gloria .txt p, .banbif .txt p { font-size: 16.5px; max-width: 46ch; }
+  .gloria :global(.lg) { display: block; width: fit-content; margin-bottom: 14px; }
+  .vis { min-height: 110px; display: grid; align-content: center; }
+
+  /* ERP */
+  .erp { background: var(--bb-gray); border-radius: 14px; padding: 0 12px 10px; color: var(--bb-black); overflow: hidden; align-content: start; }
+  .erp-h { display: flex; gap: 5px; align-items: center; margin: 0 -12px 8px; padding: 10px 12px; background: var(--bb-cyan-light); }
+  .erp-h b { font-size: 12px; font-weight: 700; }
+  .erp-r { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid rgba(20,25,37,.12); }
+  .bar { height: 8px; width: 38%; border-radius: 4px; background: rgba(20,25,37,.22); }
+  .bar.s { width: 20%; flex: 1; max-width: 22%; background: rgba(20,25,37,.12); }
+  .erp-r svg { margin-left: auto; color: var(--bb-green); background: var(--bb-black); border-radius: 50%; padding: 3px; transform: scale(0); }
+  .gloria.in-view .erp-r svg { animation: beneficios-pop .5s var(--ease) calc(.5s + var(--i) * .45s) forwards; }
+  @keyframes beneficios-pop { to { transform: scale(1); } }
+
+  /* Ruta */
+  .route svg { width: 100%; height: auto; max-height: 130px; }
+  /* Supervisor */
+  .panel { position: relative; background: rgba(255,255,255,.05); border: 1px solid var(--line-strong); border-radius: 14px; padding: 10px 12px; height: 120px; align-content: stretch; grid-template-rows: auto 1fr; }
+  .pn-top { margin-bottom: 8px; } .pn-top b { font-size: 12px; font-weight: 700; color: var(--bb-white); }
+  .pn-bars { display: flex; align-items: flex-end; gap: 8px; height: 100%; padding-right: 90px; }
+  .pn-bars span { flex: 1; height: var(--h); border-radius: 6px 6px 0 0; background: var(--bb-cyan); transform-origin: bottom; animation: beneficios-grow 3s var(--ease) infinite alternate; }
+  .pn-bars span:nth-child(even) { animation-delay: .6s; }
+  @keyframes beneficios-grow { from { transform: scaleY(.75); } to { transform: scaleY(1); } }
+  .pn-chip { position: absolute; right: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--bb-green); border: 1.5px solid var(--bb-green); padding: 4px 10px; border-radius: 999px; }
+
+  /* Bodega */
+  .pay { grid-auto-flow: column; justify-content: start; align-items: center; gap: 18px; }
+  .qr { width: 84px; height: 84px; padding: 7px; background: #fff; border-radius: 12px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; flex: none; }
+  .qr i { background: transparent; border-radius: 1px; } .qr i.on { background: var(--bb-black); }
+  .wallets { display: flex; flex-direction: column; gap: 6px; }
+  .wallets span { font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; background: var(--bb-white); color: var(--bb-black); }
+  .wallets span:nth-child(2) { translate: 10px 0; } .wallets span:nth-child(3) { translate: 4px 0; }
+
+  /* BanBif × Gloria */
+  .link { grid-auto-flow: column; align-items: center; justify-content: center; gap: 12px; padding: 22px 12px; border-radius: 18px; background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.4); }
+  .wire { position: relative; flex: 1; max-width: 160px; height: 36px; display: grid; place-items: center; }
+  .wire::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--bb-white); border-radius: 2px; opacity: .7; }
+  .ico { position: relative; width: 40px; height: 36px; background: var(--bb-white); color: var(--bb-purple); }
+  .p { position: absolute; top: 50%; left: 0; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--bb-white); animation: beneficios-travel 2.6s linear infinite; }
+  .p2 { animation-direction: reverse; animation-delay: -1.3s; background: var(--bb-cyan-light); }
+  @keyframes beneficios-travel { from { transform: translateX(0); opacity: 0; } 10%, 90% { opacity: 1; } to { transform: translateX(150px); opacity: 0; } }
+  @media (max-width: 420px) { .p { animation-name: beneficios-travel-s; } @keyframes beneficios-travel-s { from { transform: translateX(0); opacity: 0; } 10%, 90% { opacity: 1; } to { transform: translateX(60px); opacity: 0; } } }
+
+  @media (min-width: 720px) {
+    .bento { grid-template-columns: repeat(6, 1fr); }
+    .gloria { grid-column: span 6; } .dist, .sup, .bodega { grid-column: span 2; } .banbif { grid-column: span 6; }
+    .dist, .sup { grid-column: span 3; } .bodega { grid-column: span 6; }
+  }
+  @media (min-width: 1024px) {
+    .bento { grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(250px, auto); }
+    .gloria { grid-column: 1 / span 4; grid-row: span 2; display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; gap: 32px; }
+    .gloria .erp { align-self: center; }
+    .dist { grid-column: 5 / span 2; } .sup { grid-column: 5 / span 2; }
+    .bodega { grid-column: 1 / span 2; }
+    .banbif { grid-column: 3 / span 4; flex-direction: row; align-items: center; gap: 32px; }
+    .banbif .txt { flex: 1; } .banbif .link { flex: 1; }
+    .erp-r { padding: 14px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .erp-r svg { transform: scale(1); animation: none !important; }
+    .pn-bars span, .p, .truck { animation: none; }
+    .p { opacity: 1; left: 50%; }
+  }
+</style>

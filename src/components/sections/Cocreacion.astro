@@ -1,0 +1,119 @@
+---
+const hitos = [
+  { t: 'La propuesta', d: 'Presentamos al equipo de Gloria lo construido en Recaudaciones y la idea de una plataforma de cobro con QR conciliado.' },
+  { t: 'Visita a planta', d: 'Recorrimos las instalaciones para entender cómo se vive la operación de punta a punta.' },
+  { t: 'Visita a oficinas', d: 'Trabajamos con las áreas que concilian, para entender qué necesitan ver y cuándo.' },
+  { t: 'Prototipo en manos de operadores', d: 'Pusimos el mock up en un celular y lo probamos con quienes lo usarían todos los días.' },
+  { t: 'Ajustes con su feedback', d: 'Lo que no era claro se simplificó, hasta que se entendía sin explicación.' },
+  { t: 'Listo para ruta', d: 'Con la validación de los usuarios, pasamos al piloto en ruta.' },
+];
+const sellos = [
+  { t: 'Intuitivo', d: 'Se entiende sin capacitación larga.', i: 'hand' },
+  { t: 'Simple', d: 'Pocos pasos, cero vueltas.', i: 'bolt' },
+  { t: 'Conciliado', d: 'Cada operación queda registrada correctamente en ambos sistemas.', i: 'check' },
+];
+---
+<section class="section co" id="cocreacion">
+  <div class="container">
+    <div class="layout">
+      <div class="head">
+        <span class="eyebrow">Co-creación</span>
+        <h2 class="h-section">Lo construimos con ellos, <span class="grad-text">no para ellos</span></h2>
+        <p class="lead">Fuimos a donde se usa el producto.</p>
+        <p class="cuerpo">Decidimos ir más allá de entregar una solución: construirla junto a Gloria. Visitamos su planta y sus oficinas, y probamos el prototipo con quienes lo usarían todos los días: sus operadores.</p>
+      </div>
+
+      <ol class="tl">
+        <span class="track" aria-hidden="true"><span class="fill"></span></span>
+        {hitos.map((h, i) => (
+          <li class="hito" data-inview>
+            <span class="nodo" aria-hidden="true"><span>{i + 1}</span></span>
+            <div class="hc">
+              <h3>{h.t}</h3>
+              <p>{h.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <ul class="sellos">
+      {sellos.map((s, i) => (
+        <li class={`sello sello-${i + 1} reveal`} style={`--d:${i * 0.1}s`}>
+          <span class="si" aria-hidden="true">
+            {s.i === 'hand' && <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v5.5a5.5 5.5 0 0 1-5.5 5.5h-1A5.5 5.5 0 0 1 7 16.5L5 13a1.5 1.5 0 0 1 2.5-1.6L9 13" fill="var(--ic-fill)"/><circle cx="3.5" cy="21" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+            {s.i === 'bolt' && <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5 4.5 13.5H11L10 21.5l8.5-11H12z" fill="var(--ic-fill)"/><circle cx="3.5" cy="21" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+            {s.i === 'check' && <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.5 5.5v6c0 4.5 3.2 8 7.5 9.7 4.3-1.7 7.5-5.2 7.5-9.7v-6z" fill="var(--ic-fill)"/><path d="m8.5 12 2.5 2.5 4.5-5" stroke="var(--ic-ink)"/><circle cx="3" cy="21" r="1.6" fill="var(--ic-dot)" stroke="none"/></svg>}
+          </span>
+          <div><h3>{s.t}</h3><p>{s.d}</p></div>
+        </li>
+      ))}
+    </ul>
+
+    <blockquote class="cita reveal">
+      “Tenía que ser <span class="pill pill-cyan">intuitivo</span>, simple, y registrar cada operación correctamente en ambos sistemas.”
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .cuerpo { color: var(--muted); margin-top: 18px; max-width: 52ch; }
+  .layout { display: grid; gap: 40px; }
+
+  .tl { --pad: 60px; list-style: none; margin: 0; padding: 0; position: relative; view-timeline-name: --tl; view-timeline-axis: block; }
+  .track { position: absolute; left: 21px; top: 22px; bottom: 22px; width: 2px; background: var(--line-strong); border-radius: 2px; overflow: hidden; }
+  .fill { position: absolute; inset: 0; background: linear-gradient(180deg, var(--bb-cyan), 40%, var(--bb-purple)); transform-origin: top; transform: scaleY(1); }
+  .hito { position: relative; padding: 0 0 36px var(--pad); min-height: 44px; }
+  .hito:last-child { padding-bottom: 0; }
+  .nodo { position: absolute; left: 0; top: 0; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line-strong); color: var(--muted); font-weight: 800; transition: all .6s var(--ease); }
+  .hc { padding-top: 4px; opacity: .45; transform: translateY(10px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .hc h3 { font-size: 20px; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .hc p { color: var(--muted); font-size: 15.5px; line-height: 1.55; }
+  .hito.in-view .hc { opacity: 1; transform: none; }
+  .hito.in-view .nodo { background: var(--bb-cyan); color: var(--bb-black); box-shadow: 0 0 0 3px var(--bb-black), 0 0 0 5px var(--bb-green); }
+  .no-js .hc { opacity: 1; transform: none; }
+
+  /* Fallback simple: la línea se rellena hito a hito; con scroll-driven, continua */
+  .fill { transform: scaleY(0); transition: transform 1.2s var(--ease); }
+  .tl:has(.hito:nth-child(2).in-view) .fill { transform: scaleY(.1); }
+  .tl:has(.hito:nth-child(3).in-view) .fill { transform: scaleY(.28); }
+  .tl:has(.hito:nth-child(4).in-view) .fill { transform: scaleY(.46); }
+  .tl:has(.hito:nth-child(5).in-view) .fill { transform: scaleY(.64); }
+  .tl:has(.hito:nth-child(6).in-view) .fill { transform: scaleY(.82); }
+  .tl:has(.hito:nth-child(7).in-view) .fill { transform: scaleY(1); }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .fill { transition: none; transform: scaleY(0); animation: cocreacion-grow linear both; }
+      .fill:not(#x) { animation-timeline: view(); animation-range: cover 25% cover 75%; }
+      .tl .fill { transform: scaleY(0); }
+      @keyframes cocreacion-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fill { transform: scaleY(1) !important; }
+    .hc { opacity: 1; transform: none; }
+  }
+
+  .sellos { list-style: none; margin: clamp(56px, 9vw, 96px) 0 0; padding: 0; display: grid; gap: 14px; }
+  .sello { display: flex; gap: 18px; align-items: center; padding: 22px; border-radius: var(--radius); }
+  .sello-1 { background: var(--bb-cyan); color: var(--bb-black); --ic-fill: var(--bb-cyan); --ic-dot: var(--bb-purple); --ic-ink: var(--bb-black); }
+  .sello-2 { background: var(--bb-purple); color: var(--bb-white); --ic-fill: var(--bb-cyan); --ic-dot: var(--bb-purple); --ic-ink: var(--bb-black); }
+  .sello-3 { background: var(--bb-cyan-light); color: var(--bb-black); --ic-fill: var(--bb-cyan); --ic-dot: var(--bb-white); --ic-ink: var(--bb-black); }
+  .si { flex: none; width: 68px; height: 62px; border-radius: 42% / 48%; display: grid; place-items: center; }
+  .sello-1 .si { background: var(--bb-black); color: var(--bb-white); }
+  .sello-2 .si { background: var(--bb-white); color: var(--bb-black); }
+  .sello-3 .si { background: var(--bb-purple); color: var(--bb-white); }
+  .sello h3 { font-size: 24px; margin-bottom: 4px; }
+  .sello p { font-size: 15px; line-height: 1.45; }
+
+  .cita { margin: clamp(56px, 9vw, 100px) auto 0; max-width: 24ch; text-align: center; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; font-size: clamp(28px, 5.4vw, 56px); }
+
+  @media (min-width: 1024px) {
+    .layout { grid-template-columns: 5fr 6fr; gap: 80px; align-items: start; }
+    .head { position: sticky; top: 110px; }
+    .hc h3 { font-size: 22px; }
+    .sellos { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sello { flex-direction: column; align-items: flex-start; padding: 30px; gap: 22px; }
+    .cita { max-width: 28ch; }
+  }
+</style>

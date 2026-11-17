@@ -1,0 +1,33 @@
+---
+// Versión corta (página principal, la que abre el QR del polo).
+// La versión larga está en src/pages/completa.astro → /completa
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site.config';
+import Nav from '../components/sections/Nav.astro';
+import Hero from '../components/sections/Hero.astro';
+import Video from '../components/sections/Video.astro';
+import Historia from '../components/compact/Historia.astro';
+import FlujoCompacto from '../components/compact/FlujoCompacto.astro';
+import Resultados from '../components/compact/Resultados.astro';
+import Equipo from '../components/sections/Equipo.astro';
+import Cierre from '../components/sections/Cierre.astro';
+
+const links = [
+  { href: '#historia', label: 'La historia' },
+  { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '#resultados', label: 'Resultados' },
+  { href: '#equipo', label: 'Equipo' },
+];
+---
+<Base title={SITE.title} description={SITE.description}>
+  <Nav links={links} />
+  <main>
+    <Hero />
+    <Video />
+    <Historia />
+    <FlujoCompacto />
+    <Resultados />
+    <Equipo compact />
+  </main>
+  <Cierre compact />
+</Base>

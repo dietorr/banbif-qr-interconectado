@@ -1,0 +1,15 @@
+---
+// Co-branding BanBif × Gloria según el manual (pág. 10):
+// marca acompañante de composición cuadrada = 1⅓ de la altura del logo BanBif;
+// separación entre marcas = ⅔ de la altura del logo BanBif. Sin "×" ni otros signos.
+import BrandMark from './BrandMark.astro';
+interface Props { size?: number; variant?: 'blanco' | 'color' | 'negro'; class?: string; }
+const { size = 24, variant = 'blanco', class: cls = '' } = Astro.props;
+---
+<span class={`cobrand ${cls}`} style={`gap:${Math.round(size * 2 / 3)}px`} aria-label="BanBif y Gloria">
+  <BrandMark brand="banbif" size={size} variant={variant} />
+  <BrandMark brand="gloria" size={Math.round(size * 4 / 3)} />
+</span>
+<style>
+  .cobrand { display: inline-flex; align-items: center; }
+</style>

@@ -1,0 +1,169 @@
+---
+const checks = [
+  'Identificación del cliente por RUC, en línea',
+  'Cobro con QR desde cualquier billetera o banco',
+  'Registro de la transacción en el ERP de Gloria',
+  'Cuadre entre distribuidor y supervisor',
+];
+
+// Geometría de la ruta: horizontal (desktop) y vertical (móvil)
+type Pt = [number, number];
+const H = { w: 860, h: 280, pts: [[80, 170], [270, 110], [450, 178], [630, 112], [790, 160]] as Pt[], horiz: true };
+const V = { w: 320, h: 640, pts: [[90, 70], [228, 190], [96, 318], [228, 446], [110, 570]] as Pt[], horiz: false };
+
+function pathFor(pts: Pt[], horiz: boolean) {
+  let d = `M ${horiz ? 0 : pts[0][0]} ${horiz ? pts[0][1] : 0} L ${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+    if (horiz) { const mx = (x0 + x1) / 2; d += ` C ${mx} ${y0}, ${mx} ${y1}, ${x1} ${y1}`; }
+    else { const my = (y0 + y1) / 2; d += ` C ${x0} ${my}, ${x1} ${my}, ${x1} ${y1}`; }
+  }
+  const [lx, ly] = pts[pts.length - 1];
+  d += horiz ? ` L ${860} ${ly}` : ` L ${lx} 640`;
+  return d;
+}
+const views = [
+  { key: 'h', cls: 'route-h', ...H, vy: 40, vh: 200, d: pathFor(H.pts, true) },
+  { key: 'v', cls: 'route-v', ...V, vy: 0, vh: 640, d: pathFor(V.pts, false) },
+];
+---
+<section class="section" id="piloto">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">El piloto</span>
+      <h2 class="h-section">Cinco camiones. <span class="pill pill-cyan">Una ruta real.</span></h2>
+      <p class="lead">Probado donde importa: en la calle.</p>
+    </div>
+
+    <div class="top">
+      <div class="hero-num reveal">
+        <span class="five-box" aria-hidden="true"><span class="five">5</span></span>
+        <div class="five-label"><strong>5 camiones en ruta</strong><span>distribuidores y bodegas reales</span></div>
+      </div>
+      <div class="top-r reveal" style="--d:.1s">
+        <p class="lead body">Así arrancó el piloto: con cinco camiones en ruta, distribuidores reales y bodegas reales. Cobro con QR, razón social en línea, registro en el ERP y cuadre al cierre. El piloto cumplió con todo lo que Gloria necesitaba.</p>
+      </div>
+    </div>
+
+    <div class="route card" data-inview>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <symbol id="pl-truck" viewBox="0 0 72 44">
+            <rect x="2" y="6" width="42" height="26" rx="5" fill="#20a6ff" stroke="#fff" stroke-width="1.5"/>
+            <path d="M46 14h12.5a4 4 0 0 1 3.3 1.8L69 26a4 4 0 0 1 .7 2.2V32H46z" fill="#a6dbff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M51 18h7l5 7h-12z" fill="#fff" opacity=".85"/>
+            <rect x="10" y="14" width="26" height="3" rx="1.5" fill="#a6dbff"/>
+            <rect x="10" y="21" width="16" height="3" rx="1.5" fill="#a6dbff" opacity=".6"/>
+            <circle cx="16" cy="34" r="6" fill="#141925" stroke="#fff" stroke-width="1.5"/><circle cx="16" cy="34" r="1.9" fill="#924ff5"/>
+            <circle cx="56" cy="34" r="6" fill="#141925" stroke="#fff" stroke-width="1.5"/><circle cx="56" cy="34" r="1.9" fill="#924ff5"/>
+            <circle cx="6" cy="29" r="1.6" fill="#924ff5"/>
+          </symbol>
+        </defs>
+      </svg>
+
+      {views.map((v) => (
+        <svg class={`map ${v.cls}`} viewBox={`0 ${v.vy} ${v.w} ${v.vh}`} role="img" aria-label="Cinco camiones avanzando por una ruta, cada uno con una bodega validada">
+          <path d={v.d} class="road" pathLength="1" />
+          <path d={v.d} class="road-dash" />
+          <path d={v.d} class="road-draw" pathLength="1" />
+          {v.pts.map(([x, y], i) => (
+            <g class="stop" style={`--i:${i}`}>
+              <g transform={`translate(${x} ${y})`}>
+                <g class="truck"><use href="#pl-truck" x="-36" y={v.horiz ? -26 : -26} width="72" height="44" /></g>
+                <g transform={`translate(0 ${v.horiz ? (i % 2 ? 40 : -54) : -54})`}><g class="pin">
+                  <path d="M0 22C-9 11 -14 6 -14 -2a14 14 0 0 1 28 0c0 8-5 13-14 24z" class="pin-body" />
+                  <circle cx="0" cy="-2" r="9" class="pin-bg" />
+                  <path d="M-4.5 -2l3 3.2 6-6.4" class="pin-check" pathLength="1" />
+                </g></g>
+              </g>
+            </g>
+          ))}
+        </svg>
+      ))}
+    </div>
+
+    <div class="bottom">
+      <div class="badge reveal">
+        <span class="seal shape" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.4 1.9 3-.1 1 2.8 2.5 1.7-.9 2.9.9 2.9-2.5 1.7-1 2.8-3-.1L12 21.5l-2.4-1.9-3 .1-1-2.8-2.5-1.7.9-2.9-.9-2.9 2.5-1.7 1-2.8 3 .1z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg>
+        </span>
+        <p><span>Resultado del piloto</span>Cumplió con todo lo que Gloria necesitaba</p>
+      </div>
+      <ul class="checks" data-inview aria-label="Lo que se validó">
+        {checks.map((c, i) => (
+          <li style={`--i:${i}`}>
+            <span class="tick shape" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg></span>
+            <span>{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section { overflow: hidden; }
+  .glow { position: absolute; inset: 0 0 auto 0; height: 520px; background: var(--glow); opacity: .35; pointer-events: none; }
+  .container { position: relative; }
+  .top { display: grid; gap: 20px; margin-bottom: 32px; align-items: center; }
+  .hero-num { display: flex; align-items: center; gap: 18px; }
+  .five-box { flex: none; display: grid; place-items: center; width: clamp(150px, 42vw, 260px); aspect-ratio: 1; border-radius: 40% / 44%; background: var(--bb-purple); position: relative; overflow: hidden; }
+  .five-box::after { content: ''; position: absolute; width: 55%; aspect-ratio: 1; right: -14%; bottom: -14%; border-radius: 42% / 48%; background: var(--bb-cyan); }
+  .five { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 800; font-size: clamp(110px, 32vw, 200px); line-height: 1; letter-spacing: -0.05em; color: #fff; margin-top: -0.04em; }
+  .five-label { display: flex; flex-direction: column; gap: 4px; }
+  .five-label strong { font-family: var(--font-display); font-size: clamp(20px, 4vw, 30px); line-height: 1.15; max-width: 9ch; }
+  .five-label span { color: var(--muted); font-size: 14px; max-width: 16ch; }
+  .body { margin-top: 0; }
+
+  .route { padding: 12px; position: relative; overflow: hidden; background: var(--bb-black); }
+  .map { width: 100%; height: auto; overflow: visible; }
+  .route-h { display: none; }
+  .road { fill: none; stroke: var(--surface); stroke-width: 34; stroke-linecap: round; stroke-linejoin: round; }
+  .road-dash { fill: none; stroke: rgba(255,255,255,.3); stroke-width: 2; stroke-dasharray: 10 12; }
+  .road-draw { fill: none; stroke: var(--cyan); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .truck { opacity: 0; transform: translateX(-30px); transition: opacity .6s var(--ease), transform .8s var(--ease); transition-delay: calc(.5s + var(--i) * .45s); }
+  .route-v .truck { transform: translateY(-26px); }
+  .pin { opacity: 0; }
+  .pin-body { fill: var(--bb-cyan-light); }
+  .pin-bg { fill: var(--bb-black); }
+  .pin-check { fill: none; stroke: var(--ok); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transform: translate(0,-0px); }
+  .route.in-view .road-draw { stroke-dashoffset: 0; transition: stroke-dashoffset 2.6s cubic-bezier(.5,0,.2,1) .2s; }
+  .route.in-view .truck { opacity: 1; transform: none; }
+  .route.in-view .pin { animation: piloto-pin-pop .6s var(--ease) both; animation-delay: calc(.9s + var(--i) * .45s); }
+  .route.in-view .pin-check { stroke-dashoffset: 0; transition: stroke-dashoffset .5s ease calc(1.2s + var(--i) * .45s); }
+  .route.in-view .truck { animation: piloto-bob 3s ease-in-out calc(2.8s + var(--i) * .3s) infinite; }
+  @keyframes piloto-pin-pop { from { opacity: 0; transform: translateY(-14px) scale(.6); } to { opacity: 1; transform: none; } }
+  @keyframes piloto-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+
+  .bottom { display: grid; gap: 20px; margin-top: 28px; }
+  .badge { display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: var(--radius); background: var(--bb-cyan-light); color: var(--bb-black); }
+  .seal { width: 54px; height: 48px; background: var(--bb-black); color: var(--bb-green); }
+  .badge p { font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 1.3; }
+  .badge p span { display: block; font-size: 13px; font-weight: 700; color: var(--bb-black); opacity: .75; margin-bottom: 4px; }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .checks li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 56px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); font-size: 15.5px; opacity: .6; transition: opacity .5s, border-color .5s; transition-delay: calc(var(--i) * .35s); }
+  .tick { width: 36px; height: 32px; background: var(--bb-black); color: transparent; box-shadow: inset 0 0 0 1.5px var(--line-strong); transition: all .45s var(--ease); transition-delay: calc(var(--i) * .35s); }
+  .tick path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .4s ease; transition-delay: calc(var(--i) * .35s + .15s); }
+  .checks.in-view li { opacity: 1; border-color: var(--line-strong); }
+  .checks.in-view .tick { color: var(--bb-green); box-shadow: inset 0 0 0 1.5px var(--bb-green); }
+  .checks.in-view .tick path { stroke-dashoffset: 0; }
+
+  @media (min-width: 700px) {
+    .checks { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 1024px) {
+    .top { grid-template-columns: auto 1fr; gap: 56px; }
+    .route { padding: 28px 24px; }
+    .route-v { display: none; }
+    .route-h { display: block; }
+    .bottom { grid-template-columns: 0.8fr 1.4fr; align-items: stretch; }
+    .checks { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .road-draw, .pin-check, .tick path { stroke-dashoffset: 0 !important; }
+    .truck, .pin { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .checks li { opacity: 1; }
+    .checks .tick { color: var(--bb-green); box-shadow: inset 0 0 0 1.5px var(--bb-green); }
+  }
+</style>

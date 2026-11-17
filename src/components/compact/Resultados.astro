@@ -1,0 +1,129 @@
+---
+const checks = [
+  'RUC en línea',
+  'QR desde cualquier billetera',
+  'Registro en el ERP',
+  'Cuadre distribuidor / supervisor',
+];
+const who = ['Para Gloria', 'Distribuidor', 'Supervisor', 'Bodega', 'BanBif'];
+---
+<section class="section result" id="resultados">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Resultados</span>
+      <h2 class="h-section">Probado en ruta. <span class="pill pill-purple">Reconocido</span> por el mercado.</h2>
+    </div>
+
+    <div class="bento">
+      <article class="b-five reveal" data-inview>
+        <div class="five-row">
+          <span class="five" aria-hidden="true">5</span>
+          <div class="five-txt">
+            <h3>5 camiones en ruta</h3>
+            <p>Distribuidores y bodegas reales.</p>
+          </div>
+        </div>
+        <div class="lane" role="img" aria-label="Un camión recorre la ruta y valida cinco bodegas">
+          <span class="road"></span>
+          <span class="draw"></span>
+          {[0, 1, 2, 3, 4].map((i) => (
+            <span class="stop" style={`--i:${i}`}>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"/></svg>
+            </span>
+          ))}
+          <svg class="truck" viewBox="0 0 72 44" width="44" height="27" aria-hidden="true">
+            <rect x="2" y="6" width="42" height="26" rx="5" fill="#924ff5" stroke="#fff" stroke-width="1.5"/>
+            <path d="M46 14h12.5a4 4 0 0 1 3.3 1.8L69 26a4 4 0 0 1 .7 2.2V32H46z" fill="#a6dbff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M51 18h7l5 7h-12z" fill="#fff" opacity=".85"/>
+            <rect x="10" y="14" width="26" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+            <circle cx="16" cy="34" r="6" fill="#141925" stroke="#fff" stroke-width="1.5"/><circle cx="16" cy="34" r="1.9" fill="#20a6ff"/>
+            <circle cx="56" cy="34" r="6" fill="#141925" stroke="#fff" stroke-width="1.5"/><circle cx="56" cy="34" r="1.9" fill="#20a6ff"/>
+          </svg>
+        </div>
+      </article>
+
+      <article class="b-check reveal" style="--d:.08s" data-inview>
+        <h3>Cumplió con todo lo que Gloria necesitaba</h3>
+        <ul class="checks">
+          {checks.map((c, i) => (
+            <li style={`--i:${i}`}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              <span>{c}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="b-seal reveal" style="--d:.12s">
+        <span class="seal shape shape-light" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2l2.5 5.3 5.8.7-4.3 4 1.1 5.8L12 16.1 6.9 19l1.1-5.8-4.3-4 5.8-.7z" fill="#20a6ff"/><circle cx="4.5" cy="20.5" r="1.4" fill="#924ff5" stroke="none"/></svg>
+        </span>
+        <h3>La plataforma más completa del mercado, según otras empresas</h3>
+      </article>
+
+      <ul class="who reveal" style="--d:.16s" aria-label="Beneficios para cada actor">
+        {who.map((w, i) => <li class={i % 2 ? 'w-light' : 'w-cyan'}>{w}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .result { padding-block: clamp(48px, 8vw, 96px); }
+  .result .section-head { margin-bottom: 24px; }
+  .result .h-section { max-width: 20ch; }
+  .bento { display: grid; gap: 12px; }
+  .bento > article { border-radius: var(--radius); padding: 20px; }
+  h3 { font-size: clamp(18px, 4.6vw, 22px); line-height: 1.2; }
+
+  .b-five { background: var(--bb-cyan); color: var(--bb-black); display: flex; flex-direction: column; gap: 16px; }
+  .five-row { display: flex; align-items: center; gap: 16px; }
+  .five { font-family: var(--font-display); font-weight: 800; font-size: 96px; line-height: .85; letter-spacing: -0.05em; margin-top: -4px; }
+  .five-txt p { margin-top: 4px; font-size: 14.5px; font-weight: 600; }
+  .lane { position: relative; height: 56px; background: var(--bb-black); border-radius: 16px; margin-inline: 0; }
+  .road, .draw { position: absolute; left: 24px; right: 24px; top: 38px; height: 3px; border-radius: 2px; }
+  .road { background: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 8px, transparent 8px 16px); }
+  .draw { background: var(--bb-cyan); transform-origin: left; transform: scaleX(0); }
+  .stop { position: absolute; top: 31px; left: calc(24px + (100% - 48px) * var(--i) / 4); width: 17px; height: 17px; margin-left: -8.5px; border-radius: 50%; background: var(--bb-black); color: transparent; box-shadow: 0 0 0 2px rgba(255,255,255,.5); display: grid; place-items: center; transition: all .4s var(--ease); transition-delay: calc(.4s + var(--i) * .55s); }
+  .stop svg { width: 11px; height: 11px; }
+  .truck { position: absolute; top: 4px; left: 4px; }
+  .b-five.in-view .draw { transform: scaleX(1); transition: transform 2.6s cubic-bezier(.5,0,.2,1) .3s; }
+  .b-five.in-view .stop { color: var(--bb-green); box-shadow: 0 0 0 2px var(--bb-green); }
+  .b-five.in-view .truck { animation: result-drive 2.8s cubic-bezier(.5,0,.2,1) .3s forwards; }
+  @keyframes result-drive { to { left: calc(100% - 48px); } }
+
+  .b-check { background: var(--surface); border: 1px solid var(--line); }
+  .checks { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+  .checks li { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; opacity: .55; transition: opacity .4s; transition-delay: calc(var(--i) * .25s); }
+  .checks svg { flex: none; color: var(--bb-green); opacity: 0; transform: scale(.5); transition: all .4s var(--ease); transition-delay: calc(var(--i) * .25s); }
+  .b-check.in-view .checks li { opacity: 1; }
+  .b-check.in-view .checks svg { opacity: 1; transform: none; }
+
+  .b-seal { background: var(--bb-purple); color: #fff; display: flex; align-items: center; gap: 16px; }
+  .seal { width: 64px; height: 58px; }
+  .b-seal h3 { font-size: clamp(17px, 4.4vw, 21px); }
+
+  .who { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .who li { padding: 8px 14px; border-radius: 12px; font-weight: 700; font-size: 14px; }
+  .w-cyan { background: var(--bb-cyan); color: var(--bb-black); }
+  .w-light { background: var(--bb-purple-light); color: var(--bb-black); }
+
+  @media (min-width: 900px) {
+    .bento { grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .bento > article { padding: 28px; }
+    .b-five { grid-column: 1 / 8; }
+    .b-check { grid-column: 8 / 13; }
+    .b-seal { grid-column: 1 / -1; }
+    .result .h-section { max-width: 28ch; }
+    .who { grid-column: 1 / -1; }
+    .five { font-size: 130px; }
+    .five-txt p { font-size: 16px; }
+    .who li { font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .draw { transform: scaleX(1) !important; }
+    .stop { color: var(--bb-green) !important; box-shadow: 0 0 0 2px var(--bb-green) !important; }
+    .truck { animation: none !important; left: calc(100% - 48px) !important; }
+    .checks li, .checks svg { opacity: 1 !important; transform: none !important; }
+  }
+</style>

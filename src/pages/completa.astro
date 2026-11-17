@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site.config';
+import Nav from '../components/sections/Nav.astro';
+import Hero from '../components/sections/Hero.astro';
+import Reto from '../components/sections/Reto.astro';
+import Oportunidad from '../components/sections/Oportunidad.astro';
+import Cocreacion from '../components/sections/Cocreacion.astro';
+import Video from '../components/sections/Video.astro';
+import ComoFunciona from '../components/sections/ComoFunciona.astro';
+import DosPlataformas from '../components/sections/DosPlataformas.astro';
+import Beneficios from '../components/sections/Beneficios.astro';
+import Piloto from '../components/sections/Piloto.astro';
+import Reconocimiento from '../components/sections/Reconocimiento.astro';
+import Equipo from '../components/sections/Equipo.astro';
+import Cierre from '../components/sections/Cierre.astro';
+---
+<Base title={`Historia completa · ${SITE.title}`} description={SITE.description}>
+  <Nav />
+  <main>
+    <Hero />
+    <Reto />
+    <Oportunidad />
+    <Cocreacion />
+    <Video />
+    <ComoFunciona />
+    <DosPlataformas />
+    <Beneficios />
+    <Piloto />
+    <Reconocimiento />
+    <Equipo />
+  </main>
+  <Cierre />
+</Base>

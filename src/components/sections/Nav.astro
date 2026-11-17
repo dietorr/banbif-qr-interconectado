@@ -1,0 +1,63 @@
+---
+import BrandMark from '../ui/BrandMark.astro';
+interface Props { links?: { href: string; label: string }[] }
+const {
+  links = [
+    { href: '#reto', label: 'El reto' },
+    { href: '#cocreacion', label: 'Co-creación' },
+    { href: '#como-funciona', label: 'Cómo funciona' },
+    { href: '#piloto', label: 'Piloto' },
+    { href: '#equipo', label: 'Equipo' },
+  ],
+} = Astro.props;
+---
+<header class="nav" id="hero-nav" data-scrolled="false">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#inicio" aria-label="BanBif, ir al inicio">
+      <BrandMark brand="banbif" variant="blanco" size={22} />
+    </a>
+    <nav class="nav-links" aria-label="Secciones">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <a class="btn btn-primary nav-cta" href="#video">
+      Ver el video
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</header>
+
+<style>
+  /* Header web (manual pág. 16-17): degradé de forma libre sobre negro BanBif.
+     Cyan sólido a la izquierda (zona del logo) -> morado oscuro (~5%) -> negro. */
+  .nav {
+    --c1: 34%; --c2: 41%; --c3: 47%;
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    padding-top: env(safe-area-inset-top);
+    background: linear-gradient(90deg,
+      var(--bb-cyan) 0%, var(--bb-cyan) var(--c1),
+      #3f8fe0 calc(var(--c1) + (var(--c2) - var(--c1)) * .35),
+      var(--bb-purple-dark) var(--c2),
+      #2c2a5e calc(var(--c2) + (var(--c3) - var(--c2)) * .55),
+      var(--bb-black) var(--c3), var(--bb-black) 100%);
+    background-color: var(--bb-black);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .nav-inner {
+    height: 60px; width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .nav-brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+  .nav-links { display: none; gap: 4px; margin-inline: auto; }
+  .nav-links a {
+    font-size: 14px; font-weight: 600; color: var(--bb-white); text-decoration: none; padding: 8px 12px; border-radius: 8px;
+    transition: color .25s, background .25s;
+  }
+  .nav-links a:hover { color: var(--bb-cyan); background: rgba(255,255,255,.06); }
+  .nav-cta { min-height: 40px; padding: 0 14px; font-size: 14px; }
+  @media (min-width: 640px) { .nav { --c1: 24%; --c2: 28%; --c3: 33%; } }
+  @media (min-width: 1024px) {
+    .nav { --c1: 20%; --c2: 25%; --c3: 30%; }
+    .nav-links { display: flex; }
+    .nav-cta { min-height: 44px; padding: 0 18px; font-size: 15px; }
+  }
+</style>

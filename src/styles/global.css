@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Tokens de marca — según el Manual de identidad BanBif 2025
+   Paleta (pág. 13): Cyan #20A6FF · Negro #141925 · Morado #924FF5
+   Cyan claro #A6DBFF · Morado claro #BE9CF9 · Blanco #FFFFFF · Gris #EFEFEF
+   Verde #C4D600 (solo textos destacados y detalles; NUNCA fondos)
+   Morado oscuro #5E37A2 (solo degradés digitales)
+   Tipografía (pág. 20): Manrope Regular / Bold
+   Texto sobre negro: solo blanco, cyan o verde (pág. 22)
+   ========================================================================== */
+:root {
+  /* Paleta oficial */
+  --bb-cyan: #20a6ff;
+  --bb-black: #141925;
+  --bb-purple: #924ff5;
+  --bb-cyan-light: #a6dbff;
+  --bb-purple-light: #be9cf9;
+  --bb-white: #ffffff;
+  --bb-gray: #efefef;
+  --bb-green: #c4d600;
+  --bb-purple-dark: #5e37a2;
+
+  /* Gloria (solo para su logo y acentos puntuales de co-branding) */
+  --gloria: #1f1d5e;
+  --gloria-red: #e2231a;
+
+  /* Tokens semánticos (los usan todas las secciones) */
+  --bg: var(--bb-black);
+  --surface: #1b2130;          /* negro BanBif aclarado para superficies */
+  --surface-2: #222a3b;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.2);
+  --text: var(--bb-white);
+  --muted: rgba(255, 255, 255, 0.74);
+  --brand: var(--bb-purple);   /* color principal de Call to Action (pág. 34) */
+  --brand-deep: var(--bb-purple-dark);
+  --cyan: var(--bb-cyan);
+  --ok: var(--bb-green);       /* confirmaciones y checks */
+  --warn: var(--bb-purple-light);
+  /* Degradé lineal base: cyan → morado, regulador al 40% (pág. 14) */
+  --grad: linear-gradient(90deg, var(--bb-cyan), 40%, var(--bb-purple));
+  --glow: radial-gradient(60% 50% at 50% 0%, rgba(32, 166, 255, 0.28), transparent);
+
+  --font-display: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace; /* solo datos dentro de mockups */
+
+  --radius: 24px;
+  --radius-sm: 14px;
+  --radius-btn: 8px;           /* botones: radio 8 px (pág. 34) */
+  --container: 1160px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --section-y: clamp(72px, 12vw, 140px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.12; margin: 0; letter-spacing: -0.025em; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+
+/* Layout */
+.container { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
+.section { padding-block: var(--section-y); position: relative; }
+/* Separador: línea con el degradé lineal base (pág. 14: "puede usarse como línea divisoria") */
+.section + .section::before {
+  content: ''; position: absolute; top: 0; left: 50%; translate: -50% 0;
+  width: min(100% - 2 * var(--gutter), var(--container)); height: 2px;
+  background: var(--grad); opacity: 0.55; border-radius: 2px;
+}
+
+/* Etiqueta de sección: estilo de las pestañas del manual (borde blanco redondeado) */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 14px; letter-spacing: 0;
+  color: var(--text);
+  padding: 6px 14px; border: 1.5px solid rgba(255, 255, 255, 0.85); border-radius: 12px;
+  background: transparent;
+}
+.eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--bb-green); }
+.h-section { font-size: clamp(32px, 6vw, 56px); font-weight: 700; margin-top: 18px; max-width: 18ch; }
+.lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); margin-top: 18px; max-width: 60ch; }
+.section-head { margin-bottom: clamp(40px, 6vw, 64px); }
+.section-head.center { text-align: center; }
+.section-head.center .h-section, .section-head.center .lead { margin-inline: auto; }
+
+/* Palabra destacada en titulares. Sobre negro solo se permite blanco, cyan o verde:
+   se destaca en cyan BanBif (en lugar de texto con degradé, que el manual no contempla). */
+.grad-text { color: var(--bb-cyan); }
+
+/* Contenedores BanBif para composiciones tipográficas (págs. 24 y 28) */
+.pill {
+  display: inline-block; padding: 0.02em 0.32em 0.08em; margin: 0.04em 0;
+  border-radius: 0.36em; line-height: 1.1;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.pill-cyan { background: var(--bb-cyan); color: var(--bb-black); }
+.pill-purple { background: var(--bb-purple); color: var(--bb-white); }
+.pill-grad { background: var(--grad); color: var(--bb-white); }
+.pill-outline { box-shadow: inset 0 0 0 0.05em currentColor; color: var(--bb-white); }
+.pill-light { background: var(--bb-cyan-light); color: var(--bb-black); }
+
+/* Contenedor BanBif "forma base" para íconos (pág. 28): rectángulo muy redondeado */
+.shape {
+  display: inline-grid; place-items: center; flex: none;
+  width: 52px; height: 46px; border-radius: 42% / 48%;
+  background: var(--bb-cyan); color: var(--bb-black);
+}
+.shape-purple { background: var(--bb-purple); color: var(--bb-white); }
+.shape-light { background: var(--bb-cyan-light); color: var(--bb-black); }
+.shape-line { background: transparent; color: var(--bb-cyan); box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* Tarjetas: contenedor regular (rectángulo con esquinas redondeadas, sin degradé — pág. 33) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(20px, 3vw, 28px);
+}
+
+/* Botones (págs. 34-35): radio 8 px, Manrope Bold, CTA principal en morado,
+   secundarios en cyan o en versión lineal. Flecha ">" opcional al final. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 22px; border-radius: var(--radius-btn);
+  font-family: var(--font-body); font-weight: 700; font-size: 16px; text-decoration: none; border: 0; cursor: pointer;
+  transition: transform 0.3s var(--ease), background 0.3s, box-shadow 0.3s;
+}
+.btn-primary { background: var(--bb-purple); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); background: #9d61f6; box-shadow: 0 12px 30px -12px rgba(146, 79, 245, 0.9); }
+.btn-cyan { background: var(--bb-cyan); color: #fff; }
+.btn-cyan:hover { transform: translateY(-2px); background: #3bb1ff; }
+.btn-ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.9); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.08); }
+.btn .chev { width: 16px; height: 16px; flex: none; }
+
+/* Revelado al hacer scroll (JS agrega .in-view) */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in-view { opacity: 1; transform: none; }
+.no-js .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Red de seguridad: ningún adorno genera scroll horizontal (clip no rompe position: sticky) */
+main, footer, .section { overflow-x: clip; }

@@ -1,0 +1,22 @@
+---
+// Marco de celular reutilizable. El contenido de la pantalla va en el <slot />.
+interface Props { label?: string; class?: string; }
+const { label = 'Simulación de la app', class: cls = '' } = Astro.props;
+---
+<div class={`phone ${cls}`} role="img" aria-label={label}>
+  <div class="phone-notch" aria-hidden="true"></div>
+  <div class="phone-screen"><slot /></div>
+</div>
+<style>
+  .phone {
+    position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 19;
+    border-radius: 44px; padding: 10px;
+    background: #262d3d;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.14) inset, 0 40px 80px -24px rgba(0,0,0,.75);
+  }
+  .phone-notch { position: absolute; top: 18px; left: 50%; translate: -50% 0; width: 90px; height: 24px; border-radius: 20px; background: #000; z-index: 3; }
+  .phone-screen {
+    position: relative; height: 100%; border-radius: 34px; overflow: hidden;
+    background: #ffffff; color: var(--bb-black); font-family: var(--font-body);
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import { SITE } from '../../site.config';
+const id = SITE.youtubeId?.trim();
+---
+<section class="section video" id="video" aria-labelledby="medio-video-title">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">El video</span>
+      <h2 class="h-section" id="medio-video-title">La historia completa, en menos de <span class="pill pill-cyan">dos minutos</span></h2>
+      <p class="lead">Del reto al piloto, con las personas que lo hicieron posible.</p>
+    </div>
+
+    <div class="stage reveal" style="--d:.1s">
+      <div class="frame">
+        <div class="inner">
+          {id ? (
+            <lite-youtube videoid={id} params="rel=0&modestbranding=1" playlabel="Video de YouTube: Pago QR interconectado, BanBif y Grupo Gloria"></lite-youtube>
+          ) : (
+            <div class="soon" role="img" aria-label="El video se publica muy pronto">
+              <span class="sh s1" aria-hidden="true"></span><span class="sh s2" aria-hidden="true"></span><span class="sh s3" aria-hidden="true"></span>
+              <div class="soon-c">
+                <span class="play shape" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>
+                </span>
+                <p class="soon-t">El video se publica muy pronto</p>
+                <span class="badge pill pill-outline">Muy pronto</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <p class="ficha reveal" style="--d:.15s">
+      <span>Duración aproximada: 1:45</span><i aria-hidden="true"></i><span>Pago QR interconectado</span><i aria-hidden="true"></i><span>BanBif × Grupo Gloria</span>
+    </p>
+    <p class="intro reveal" style="--d:.2s">Dale play y recorre el camino: cómo Gloria cobraba con QR, por qué conciliar era el problema, cómo construimos la solución junto a sus operadores y cómo se vio en ruta con 5 camiones.</p>
+    <div class="cta reveal" style="--d:.25s">
+      <a class="btn btn-primary" href="#como-funciona">Ver cómo funciona paso a paso
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import 'lite-youtube-embed';
+  import 'lite-youtube-embed/src/lite-yt-embed.css';
+</script>
+
+<style>
+  .video { overflow: clip; }
+  .container { position: relative; }
+  .stage { position: relative; max-width: 960px; margin-inline: auto; }
+  /* Marco: contenedor regular con borde de 2 px en el degradé lineal base (estático) */
+  .frame { position: relative; padding: 2px; border-radius: 22px; background: var(--grad); box-shadow: 0 30px 60px -34px rgba(32, 166, 255, 0.45); }
+  .inner { border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; background: var(--bb-black); }
+  .inner :global(lite-youtube) { width: 100%; max-width: none; height: 100%; border-radius: 0; }
+
+  .soon { position: relative; height: 100%; display: grid; place-items: center; overflow: hidden; background: var(--grad); }
+  /* Fondo gráfico: formas base translúcidas que se tocan (pág. 28) */
+  .sh { position: absolute; border-radius: 42% / 48%; background: rgba(255, 255, 255, 0.14); }
+  .s1 { width: 34%; aspect-ratio: 1.15; left: -5%; top: -14%; animation: video-drift 9s ease-in-out infinite alternate; }
+  .s2 { width: 28%; aspect-ratio: 1.15; right: 6%; bottom: -16%; background: rgba(255, 255, 255, 0.1); animation: video-drift 11s ease-in-out infinite alternate-reverse; }
+  .s3 { width: 16%; aspect-ratio: 1.15; right: -3%; top: 10%; background: rgba(255, 255, 255, 0.18); animation: video-drift 8s ease-in-out infinite alternate; }
+  @keyframes video-drift { to { transform: translate(10%, 8%); } }
+  .soon-c { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 16px; }
+  .play.shape { width: clamp(72px, 15vw, 112px); height: clamp(62px, 13vw, 96px); background: var(--bb-white); color: var(--bb-purple); padding-left: 4px; cursor: not-allowed; animation: video-pulse 2.6s ease-in-out infinite; }
+  .play svg { width: 36%; height: auto; }
+  @keyframes video-pulse { 50% { transform: scale(1.05); } }
+  .soon-t { font-weight: 700; font-size: clamp(17px, 3.4vw, 26px); color: #fff; }
+  .badge { font-weight: 700; font-size: 13px; padding: 0.3em 0.9em; border-radius: 999px; color: #fff; }
+
+  .ficha { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 14px; margin-top: 28px; font-size: 14px; font-weight: 600; color: var(--muted); text-align: center; }
+  .ficha i { width: 5px; height: 5px; border-radius: 50%; background: var(--bb-green); }
+  @media (max-width: 640px) { .ficha i { display: none; } .ficha { flex-direction: column; } }
+  .intro { max-width: 62ch; margin: 22px auto 0; text-align: center; color: var(--muted); }
+  .cta { display: flex; justify-content: center; margin-top: 28px; }
+  @media (prefers-reduced-motion: reduce) { .sh, .play { animation: none; } }
+</style>
