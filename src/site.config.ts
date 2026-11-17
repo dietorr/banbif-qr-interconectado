@@ -4,7 +4,7 @@ export const SITE = {
   team: 'Canales Digitales para Empresas',
   // Pega aquí solo el ID del video de YouTube (lo que va después de "v=" o de "youtu.be/").
   // Mientras esté vacío, la sección muestra un estado "Muy pronto".
-  youtubeId: '',
+  youtubeId: 'JOg6oE8Y3GM',
   year: 2026,
   title: 'Pago QR interconectado | BanBif × Grupo Gloria',
   description:
